@@ -13,35 +13,32 @@
 
 
 void forLoopPractice(int start, int end) {
-    // for loop
+    //for loop
     for (int i = start; i < end; i++) {
-        printf("For Loop: %d\n", i);
+        printf("For Loop %d\n", i);
     }
 
-    // now reverse the loop
-    for (int i = end-1; i >= start; i--) {
-        printf("For Loop Reverse: %d\n", i);
+    // reverse loop
+    for (int i = end - 1; i >= start; i--) {
+        printf("For Loop Reverse %d\n", i);
     }
 
-    // now with a step
     for (int i = start; i < end; i += 2) {
         printf("For Loop with Step: %d\n", i);
     }
-
 }
 
 void whileLoopPractice(int start, int end) {
     // while loop
     int i = start;
-    while (i < end) {
+    while(i < end) {
         printf("While Loop: %d\n", i);
         i++;
     }
 
-    // now reverse the loop
-    i = end-1;
+    i = end - 1;
     while (i >= start) {
-        printf("While Loop Reverse: %d\n", i);
+        printf("While Loop Reversed: %d\n", i);
         i--;
     }
 
@@ -55,18 +52,13 @@ void whileLoopPractice(int start, int end) {
 
 void whileLoopMenu() {
     int choice = 0;
-    char input = ' ';
     while (choice != 3) {
         printf("1. For Loop\n");
         printf("2. While Loop\n");
         printf("3. Exit\n");
         printf("Enter your choice: ");
-        //scanf("%d", &choice);
 
-    
-        input = getchar(); // Read a character from input
-        while (getchar() != '\n'); // Clear the input buffer
-        choice = input - '0'; // Convert character to integer
+        scanf("%d", &choice);
 
         switch (choice) {
             case 1:
