@@ -40,11 +40,11 @@ int runGame(int randomNumber) {
         } else if (guess > randomNumber) {
             printf("Too high! Try again.\n");
         } else {
-            printf("Congratulations! You guessed the number in %d attempts.\n", attempts);
+            printf("Congratulations! You guessed the number %d in %d attempts.\n", randomNumber, attempts);
         }
     }
 
-    return 0;
+    return attempts;
 }
 
 void start() {
