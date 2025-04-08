@@ -72,7 +72,8 @@ void conditionExample() {
 }
 
 int myAddition(int a, int b) {
-    return a + b; 
+    int tmp = a + b;
+    return tmp; 
 }
 
 void printHelloWorld() {
@@ -82,6 +83,6 @@ void printHelloWorld() {
 int main() {
     int x = 40 + 2;     // This is a single comment
     printf("Aloha, World! %d is the answer...\n", x);
-    sizeExample();
+    int y = myAddition(x, 10);
     return 0;
 }
