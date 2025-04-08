@@ -48,15 +48,18 @@ void forLoopExample() {
     printf("\n");
 }
 
+void printArray(int* array, int size) {
+    for(int i = 0; i < size; i++) { 
+        printf("Value %d, pointer %p\n", array[i], (void*)&array[i]);
+    } 
+}
 
 int main() {
     int points[2] = {10, 20};
     printf("Point 0: %d\n", points[0]);
     printf("Point 1: %d\n", points[1]);
 
-    for(int i = 0; i < 2; i++) {
-        printf("Points value %d, points pointer %p\n", points[i], (void*)&points[i]);
-    }
+    printArray(points, 2);
 
     int* pointers = points;
     for(int i =0; i < 2; i++) {
@@ -69,4 +72,10 @@ int main() {
 
     forLoopExample();
     matrixExample();
+
+    int arr[5] = {10, 20, 30, 40, 50};
+    int *ptr = arr;  // ptr now points to the first element of arr
+
+    printArray(ptr, 5);
+    printArray(arr, 5);
 }
