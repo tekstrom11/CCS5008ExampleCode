@@ -1,5 +1,5 @@
 /**
- * Solution file for Heap Practice Code Along
+ * Solution file for Reading List Code Along
  *
  * @author: Albert Lionelle
  * @date: 2025.04.10
