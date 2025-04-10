@@ -7,10 +7,11 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 typedef struct {
-  const char *author;
-  const char *title;
+  char author[100];
+  char title[256];
   int year;
 } Book;
 
@@ -28,14 +29,21 @@ ReadingList *createReadingList(int size) {
   return readingList;
 }
 
-void addBook(ReadingList *readingList, const char *author, const char *title, int year) {
+void copyString(char *dest, const char *src, int size) {
+  strncpy(dest, src, size - 1);
+  dest[size - 1] = '\0'; // Ensure null-termination
+}
+
+void addBook(ReadingList *readingList, const char *author, const char *title,
+             int year) {
   int index = readingList->current;
-  readingList->books[index].author = author;
-  readingList->books[index].title = title;
+  copyString(readingList->books[index].author, author,
+             sizeof(readingList->books[index].author));
+  copyString(readingList->books[index].title, title,
+             sizeof(readingList->books[index].title));
   readingList->books[index].year = year;
   readingList->current++;
 }
-
 void printReadingList(ReadingList *readingList) {
   for (int i = 0; i < readingList->current; i++) {
     printf("Book %d: %s by %s (%d)\n", i + 1, readingList->books[i].title,
