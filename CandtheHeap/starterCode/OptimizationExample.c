@@ -57,6 +57,15 @@ int timeFunction(void (*func)(int, bool), int arg, bool print) {
     return (int)(end - start);
 }
 
+void printClockTimeInSeconds(int timeTaken) {
+    if (timeTaken > CLOCKS_PER_SEC * 60) {
+        int minutes = timeTaken / (CLOCKS_PER_SEC * 60);
+        int seconds = (timeTaken % (CLOCKS_PER_SEC * 60)) / CLOCKS_PER_SEC;
+        printf("Time taken: %d minutes and %d seconds\n", minutes, seconds);
+    } else {
+        printf("Time taken: %.2f seconds\n", (double)timeTaken / CLOCKS_PER_SEC);
+    }
+}
 
 
 int main(int argc, char *argv[]) {
@@ -75,13 +84,9 @@ int main(int argc, char *argv[]) {
     }
     // Example of timing a function
     int timeTaken = timeFunction(runTest, size, print);
-    if (timeTaken > CLOCKS_PER_SEC * 60) {
-        int minutes = timeTaken / (CLOCKS_PER_SEC * 60);
-        int seconds = (timeTaken % (CLOCKS_PER_SEC * 60)) / CLOCKS_PER_SEC;
-        printf("Time taken: %d minutes and %d seconds\n", minutes, seconds);
-    } else {
-        printf("Time taken: %.2f seconds\n", (double)timeTaken / CLOCKS_PER_SEC);
-    }
+    
+    printClockTimeInSeconds(timeTaken);
+
 
     return 0;
 }
