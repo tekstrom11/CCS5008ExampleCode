@@ -3,7 +3,7 @@
 
  */
 
- #include <stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -40,28 +40,29 @@ void printReadingList(ReadingList *readingList) {
 }
 
 void copyString(char *dest, const char *src, int size) {
-    strncpy(dest, src, size - 1);
-    dest[size - 1] = '\0';
+  strncpy(dest, src, size - 1);
+  dest[size - 1] = '\0';
 }
 
-void addBook(ReadingList *readingList, const char *author, const char *title, int year) {
-    int index = readingList->current;
-    Book *singleBook = &readingList->books[index];
-    copyString(singleBook->author, author, sizeof(singleBook->author));
-    copyString(singleBook->title, title, sizeof(singleBook->title));
-    singleBook->year = year;
-    readingList->current++;
+void addBook(ReadingList *readingList, const char *author, const char *title,
+             int year) {
+  int index = readingList->current;
+  Book *singleBook = &readingList->books[index];
+  copyString(singleBook->author, author, sizeof(singleBook->author));
+  copyString(singleBook->title, title, sizeof(singleBook->title));
+  singleBook->year = year;
+  readingList->current++;
 }
 
 void removeBook(ReadingList *readingList, int index) {
-    if (index < 0 || index >= readingList->current) {
-        printf("Invalid index\n");
-        return;
-    }
-    for(int i = index; i < readingList->current - 1; i++) {
-        readingList->books[i] = readingList->books[i+1];
-    }
-    readingList->current--;
+  if (index < 0 || index >= readingList->current) {
+    printf("Invalid index\n");
+    return;
+  }
+  for (int i = index; i < readingList->current - 1; i++) {
+    readingList->books[i] = readingList->books[i + 1];
+  }
+  readingList->current--;
 }
 
 int main() {
@@ -75,7 +76,6 @@ int main() {
   printf("\n");
   // removeBook(myList, 1);
   // printReadingList(myList);
-
 
   freeReadingList(myList);
   return 0;
