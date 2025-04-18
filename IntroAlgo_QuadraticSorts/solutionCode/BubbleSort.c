@@ -7,19 +7,18 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 
 #include "SortUtils.h"
 
 // global to track swaps
-long int _bs_swapCount = 0;
+long int _bs_opCount = 0;
 
 // function to swap two elements in an array
 void swap(int *a, int *b) {
   int temp = *a;
   *a = *b;
   *b = temp;
-  _bs_swapCount++;
+  _bs_opCount++;
 }
 
 /** Pseudo Code
@@ -44,15 +43,17 @@ void swap(int *a, int *b) {
 
 // function to perform bubble sort on an array
 void bubbleSort(int *arr, int size) {
-  for (int i = 0; i < size ; i++) {
+  for (int i = 0; i < size; i++) {
+    _bs_opCount++;
     int swapped = 0; // flag to check if any swaps were made
     for (int j = 0; j < size - i - 1; j++) {
+      _bs_opCount++;
       if (arr[j] > arr[j + 1]) {
         swap(&arr[j], &arr[j + 1]);
-        swapped = 1; // set flag to true if a swap was made
+        swapped = 1;
       }
     }
-    if (!swapped) { // if no swaps were made, the array is sorted
+    if (!swapped) {
       break;
     }
   }
@@ -61,11 +62,12 @@ void bubbleSort(int *arr, int size) {
 int main(int argc, char *argv[]) {
   srand(time(NULL)); // seed the random number generator
   int size = 10;
-  if (argc > 1 ) {
+  if (argc > 1) {
     size = atoi(argv[1]); // get the size from command line argument
-  } 
+  }
   int arr[size];
-  initializeRandomArray(arr, size); // build a random array
+  // initializeRandomArray(arr, size); // build a random array
+  initializeReverseSortedArray(arr, size);
 
   printf("Original array: \n");
   for (int i = 0; i < size; i++) {
@@ -79,7 +81,7 @@ int main(int argc, char *argv[]) {
   printArray(arr, size);
   printf("\n");
 
-  printf("Number of swaps: %ld\n", _bs_swapCount);
+  printf("Number of swaps: %ld\n", _bs_opCount);
   printTimeTaken(timeTaken); // print the time taken to sort the array
 
   return 0;
