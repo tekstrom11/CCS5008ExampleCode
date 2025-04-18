@@ -12,7 +12,7 @@
 #include "SortUtils.h"
 
 // global to track swaps
-int _bs_swapCount = 0;
+long int _bs_swapCount = 0;
 
 // function to swap two elements in an array
 void swap(int *a, int *b) {
@@ -79,7 +79,7 @@ int main(int argc, char *argv[]) {
   printArray(arr, size);
   printf("\n");
 
-  printf("Number of swaps: %d\n", _bs_swapCount);
+  printf("Number of swaps: %ld\n", _bs_swapCount);
   printTimeTaken(timeTaken); // print the time taken to sort the array
 
   return 0;
