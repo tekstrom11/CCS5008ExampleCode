@@ -60,6 +60,7 @@ void runSorts(int *bArr, int *iArr, int *sArr, int size) {
 }
 
 int main(int argc, char const *argv[]) {
+  srand(time(NULL)); // see randomize function in SortUtils.h
   if (argc < 2) {
     printf("Usage: %s <size>\n", argv[0]);
     return 1;
