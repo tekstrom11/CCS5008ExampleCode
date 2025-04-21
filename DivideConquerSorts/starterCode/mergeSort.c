@@ -1,7 +1,7 @@
 /**
- * Solution to merge sort code along. 
- * 
- * 
+ * Solution to merge sort code along.
+ *
+ *
  * @author Albert Lionelle
  * @date 2025-04-21
  */
@@ -12,14 +12,13 @@
 
 #include "SortUtils.h"
 
-
 // global to track swaps
 long int _ms_opCount = 0; // global to track swaps for merge sort
 
 int _DEBUG = 0; // debug flag
 
 /** Pseudo Code
- * 
+ *
 ```
 Algorithm MergeSort(A)
     Input: List A of 𝑛 elements
@@ -67,53 +66,47 @@ def Merge(A, left, mid, right):
         j = j + 1
         k = k + 1
 ```
- * 
+ *
  */
 
- void merge(int *arr, int size, int left, int mid, int right, int *swapMemory) {
-    
+void merge(int *arr, int size, int left, int mid, int right, int *swapMemory) {}
 
- }
-
-void mergeSort(int *arr, int size, int left, int right, int *swapMemory) {
-   
-}
-
+void mergeSort(int *arr, int size, int left, int right, int *swapMemory) {}
 
 void runMergeSort(int *arr, int size) {
-    int swapMemory[size];  
-    mergeSort(arr, size, 0, size - 1, swapMemory); // call the merge sort function
+  int swapMemory[size];
+  mergeSort(arr, size, 0, size - 1, swapMemory); // call the merge sort function
 }
 
+int main(int argc, char const *argv[]) {
+  srand(time(NULL));
+  if (argc < 2) {
+    printf("Usage: %s <size>\n", argv[0]);
+    return 1;
+  }
+  if (argc > 2) {
+    _DEBUG = atoi(argv[2]); // set debug flag
+  }
+  int size = atoi(argv[1]);
+  int arr[size];
 
-int main(int argc, char const *argv[]){
-    srand(time(NULL));
-    if (argc < 2) {
-        printf("Usage: %s <size>\n", argv[0]);
-        return 1;
-    }
-    if (argc > 2) {
-        _DEBUG = atoi(argv[2]); // set debug flag
-    }
-    int size = atoi(argv[1]);
-    int arr[size];
-    
-    initializeRandomArray(arr, size); // initialize the array with random values
-    
-    if(size < 20) {
-        printf("Before sorting:\n");
-        printArray(arr, size); // print the array before sorting
-    }
-    int clockcounter = timeFunction(runMergeSort, arr, size); // call the merge sort function
+  initializeRandomArray(arr, size); // initialize the array with random values
 
-    if(size < 20) {
-        printf("After sorting:\n");
-        printArray(arr, size); // print the array after sorting
-    }
+  if (size < 20) {
+    printf("Before sorting:\n");
+    printArray(arr, size); // print the array before sorting
+  }
+  int clockcounter =
+      timeFunction(runMergeSort, arr, size); // call the merge sort function
 
-    printf("Number of operations: %ld\n", _ms_opCount); // print the number of operations
-    printTimeTaken(clockcounter); // print the time taken to sort the array
+  if (size < 20) {
+    printf("After sorting:\n");
+    printArray(arr, size); // print the array after sorting
+  }
 
+  printf("Number of operations: %ld\n",
+         _ms_opCount);          // print the number of operations
+  printTimeTaken(clockcounter); // print the time taken to sort the array
 
-    return 0;
+  return 0;
 }
