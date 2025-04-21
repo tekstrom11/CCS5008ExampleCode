@@ -1,9 +1,7 @@
 /**
- * Solution to merge sort code along.
+ * Starter code for Merge Sort Code Along
  *
  *
- * @author Albert Lionelle
- * @date 2025-04-21
  */
 
 #include <stdio.h>
