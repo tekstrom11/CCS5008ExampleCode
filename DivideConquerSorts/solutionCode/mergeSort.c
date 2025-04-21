@@ -8,6 +8,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "SortUtils.h"
 
@@ -84,12 +85,15 @@ def Merge(A, left, mid, right):
     int *L = swapMemory; // left subarray
     int *R = swapMemory + n1; // right subarray
     // copy data to temp arrays L[] and R[]
-    for (int i = 0; i < n1; i++) {
-        L[i] = arr[left + i]; // copy left subarray
-    }
-    for (int j = 0; j < n2; j++) {
-        R[j] = arr[mid + 1 + j]; // copy right subarray
-    }
+    memcpy(L, arr+left, sizeof(int) * n1);
+    memcpy(R, arr+ mid+ 1, sizeof(int) * n2);
+
+    // for (int i = 0; i < n1; i++) {
+    //     L[i] = arr[left + i]; // copy left subarray
+    // }
+    // for (int j = 0; j < n2; j++) {
+    //     R[j] = arr[mid + 1 + j]; // copy right subarray
+    // }
 
     // merge the temp arrays back into arr[left..right]
     int i = 0; // initial index of first subarray
