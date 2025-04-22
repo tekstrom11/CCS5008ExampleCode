@@ -69,7 +69,7 @@ def Merge(A, left, mid, right):
  *
  */
 
-void merge(int *arr, int size, int left, int mid, int right, int *swapMemory) {
+void merge(int *arr, int left, int mid, int right, int *swapMemory) {
 
   int n1 = mid - left + 1; // size of left subarray
   int n2 = right - mid;    // size of right subarray
@@ -125,18 +125,18 @@ void merge(int *arr, int size, int left, int mid, int right, int *swapMemory) {
   }
 }
 
-void mergeSort(int *arr, int size, int left, int right, int *swapMemory) {
+void mergeSort(int *arr, int left, int right, int *swapMemory) {
   if (left < right) {
     int mid = left + (right - left) / 2;              // find the middle point
-    mergeSort(arr, size, left, mid, swapMemory);      // sort first half
-    mergeSort(arr, size, mid + 1, right, swapMemory); // sort second half
-    merge(arr, size, left, mid, right, swapMemory);   // merge the sorted halves
+    mergeSort(arr, left, mid, swapMemory);      // sort first half
+    mergeSort(arr, mid + 1, right, swapMemory); // sort second half
+    merge(arr, left, mid, right, swapMemory);   // merge the sorted halves
   }
 }
 
 void runMergeSort(int *arr, int size) {
   int swapMemory[size];
-  mergeSort(arr, size, 0, size - 1, swapMemory); // call the merge sort function
+  mergeSort(arr,  0, size - 1, swapMemory); // call the merge sort function
 }
 
 int main(int argc, char const *argv[]) {
