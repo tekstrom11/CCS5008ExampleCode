@@ -75,12 +75,12 @@ int main(int argc, char *argv[]) {
     }
   }
 
-  if (fibType & FIBO_RECURSIVE) {
+  if ((fibType & FIBO_RECURSIVE) == FIBO_RECURSIVE) {
     int time_recursive = time_fibonacci_recursive(n);
     printf("Time taken for Fibonacci Recursive: ");
     printTimeTaken(time_recursive);
   }
-  if (fibType & FIBO_MEMOIZATION) {
+  if ((fibType & FIBO_MEMOIZATION) == FIBO_MEMOIZATION) {
     int time_memoization = time_fibonacci_memoization(n);
 
     printf("Time taken for Fibonacci Memoization: ");
