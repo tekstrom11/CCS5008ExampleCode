@@ -16,7 +16,6 @@ int _debug = 0;
 
 enum { TABULATION = 2, NO_TABULATION = 1 };
 
-
 char *get_substring(int max_len, int end_index, const char *str_one) {
   if (max_len <= 0 || end_index <= 0) {
     return NULL; // No common substring found
@@ -79,7 +78,8 @@ char *longest_common_substring_with_tabulation(const char *str_one,
     }
   }
 
-  if(_debug) printMatrix((int *)dp, len2 + 1, len1 + 1); // Print the dp array
+  if (_debug)
+    printMatrix((int *)dp, len2 + 1, len1 + 1); // Print the dp array
 
   return get_substring(max_len, end_index, str_one);
 }
@@ -108,26 +108,28 @@ int main(int argc, char const *argv[]) {
   const char *str_two = argv[2];
 
   int type = NO_TABULATION | TABULATION; // Default to both methods
-    if (argc > 3) {
-        type = atoi(argv[3]);
-        if (type < NO_TABULATION || type > TABULATION) {
-        printf("Error: Invalid type. Use 0 for no tabulation, 1 for tabulation, "
-                 "or 2 for both.\n");
-        return 1;
-        }
+  if (argc > 3) {
+    type = atoi(argv[3]);
+    if (type < NO_TABULATION || type > TABULATION) {
+      printf(
+          "Error: Invalid type. Use %d for no tabulation, %d for tabulation, "
+          "or %d for both.\n",
+          NO_TABULATION, TABULATION, NO_TABULATION | TABULATION);
+      return 1;
     }
+  }
 
-  if(argc > 4) {
+  if (argc > 4) {
     _debug = atoi(argv[3]);
   }
 
-  if((type & NO_TABULATION) == NO_TABULATION) {
+  if ((type & NO_TABULATION) == NO_TABULATION) {
     printf("Longest common substring without tabulation (m^2 * n^2)\n");
     int time_taken = time_substring(longest_common_substring_no_tabulation,
                                     str_one, str_two);
     printTimeTaken(time_taken);
   }
-  if((type & TABULATION) == TABULATION) {
+  if ((type & TABULATION) == TABULATION) {
     printf("Longest common substring with tabulation (m * n)\n");
     int time_taken_tabulation = time_substring(
         longest_common_substring_with_tabulation, str_one, str_two);
