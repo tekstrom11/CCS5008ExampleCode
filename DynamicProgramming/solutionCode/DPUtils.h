@@ -51,7 +51,7 @@ void printTimeTaken(int clockTicks) {
     int seconds = (clockTicks % (CLOCKS_PER_SEC * 60)) / CLOCKS_PER_SEC;
     printf("Time taken: %d minutes and %d seconds\n", minutes, seconds);
   } else {
-    printf("Time taken: %.2f seconds\n", clockToSeconds(clockTicks));
+    printf("Time taken: %.8f seconds\n", clockToSeconds(clockTicks));
   }
 }
 
