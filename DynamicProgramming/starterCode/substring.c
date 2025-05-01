@@ -65,7 +65,7 @@ int main(int argc, char const *argv[]) {
   }
 
   if ((type & NO_TABULATION) == NO_TABULATION) {
-    printf("Longest common substring without tabulation (m^2 * n^2)\n");
+    printf("Longest common substring without tabulation (m^2 * n)\n");
     int time_taken = time_substring(longest_common_substring_no_tabulation,
                                     str_one, str_two);
     printTimeTaken(time_taken);
