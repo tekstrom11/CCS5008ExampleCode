@@ -1,5 +1,5 @@
-#ifndef VECTOR_H
-#define VECTOR_H
+#ifndef NEU_VECTOR_H
+#define NEU_VECTOR_H
 
 #include <stdlib.h>
 
@@ -16,14 +16,14 @@ void free_vector(NeuVector* vector);
 int get_vector_size(NeuVector* vector);
 int get_vector_capacity(NeuVector* vector);
 int get_vector_element(NeuVector* vector, size_t index);
-int set_vector_element(NeuVector* vector, size_t index, int value);
-int insert_vector_element(NeuVector* vector, size_t index, int value);
-int append_element(NeuVector* vector, int value);
-int pop_element(NeuVector* vector);
+void set_vector_element(NeuVector* vector, size_t index, int value);
+void insert_vector_element(NeuVector* vector, size_t index, int value);
+void append_vector_element(NeuVector* vector, int value);
+int pop_vector_element(NeuVector* vector);
 int remove_vector_element(NeuVector* vector, size_t index);
-int find_vector_element(NeuVector* vector, int value);
+int contains_element(NeuVector* vector, int value);
 void print_vector(NeuVector* vector);
 
 
 
-#endif // VECTOR_H
+#endif // NEU_VECTOR_H
