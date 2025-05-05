@@ -18,8 +18,18 @@
  * @return A pointer to the newly created vector, or NULL if memory allocation fails.
  */
 NeuVector* create_vector(size_t initial_capacity) {
-    // TODO: Implement this function
-    return NULL;
+    NeuVector* vector = (NeuVector*)malloc(sizeof(NeuVector));
+    if (vector == NULL) {
+        return NULL; // Memory allocation failed
+    }
+    vector->data = (int*)malloc(initial_capacity * sizeof(int));
+    if (vector->data == NULL) {
+        free(vector); // Free the vector structure if data allocation fails
+        return NULL; // Memory allocation failed
+    }
+    vector->size = 0; // Initialize size to 0
+    vector->capacity = initial_capacity; // Set the initial capacity
+    return vector; // Return the newly created vector
 }
 
 /**
