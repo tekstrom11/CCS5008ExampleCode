@@ -32,14 +32,26 @@ void free_vector(NeuVector* vector) {
 }
 
 /**
- * Gets the current size of the vector.
+ * Appends an element to the end of the vector.
  * 
  * @param vector A pointer to the vector.
- * @return The number of elements in the vector.
+ * @param value The value to append.
+ * @return 0 if successful, or -1 if memory allocation fails.
  */
-int get_vector_size(NeuVector* vector) {
+void append_vector_element(NeuVector* vector, int value) {
     // TODO: Implement this function
-    return 0;
+}
+
+/**
+ * Finds the first occurrence of a value in the vector.
+ * 
+ * @param vector A pointer to the vector.
+ * @param value The value to find.
+ * @return The index of the first occurrence of the value, or -1 if the value is not found.
+ */
+int contains_element(NeuVector* vector, int value) {
+    // TODO: Implement this function
+    return -1;
 }
 
 /**
@@ -66,14 +78,14 @@ int get_vector_element(NeuVector* vector, size_t index) {
 }
 
 /**
- * Sets the element at the specified index in the vector.
+ * Gets the current size of the vector.
  * 
  * @param vector A pointer to the vector.
- * @param index The index of the element to set.
- * @param value The value to set at the specified index.
+ * @return The number of elements in the vector.
  */
-void set_vector_element(NeuVector* vector, size_t index, int value) {
+int get_vector_size(NeuVector* vector) {
     // TODO: Implement this function
+    return 0;
 }
 
 /**
@@ -84,18 +96,6 @@ void set_vector_element(NeuVector* vector, size_t index, int value) {
  * @param value The value to insert.
  */
 void insert_vector_element(NeuVector* vector, size_t index, int value) {
-    // TODO: Implement this function
- 
-}
-
-/**
- * Appends an element to the end of the vector.
- * 
- * @param vector A pointer to the vector.
- * @param value The value to append.
- * @return 0 if successful, or -1 if memory allocation fails.
- */
-void append_vector_element(NeuVector* vector, int value) {
     // TODO: Implement this function
 }
 
@@ -111,6 +111,15 @@ int pop_vector_element(NeuVector* vector) {
 }
 
 /**
+ * Prints the elements of the vector to the standard output.
+ * 
+ * @param vector A pointer to the vector.
+ */
+void print_vector(NeuVector* vector) {
+    // TODO: Implement this function
+}
+
+/**
  * Removes the element at the specified index in the vector.
  * 
  * @param vector A pointer to the vector.
@@ -123,22 +132,12 @@ int remove_vector_element(NeuVector* vector, size_t index) {
 }
 
 /**
- * Finds the first occurrence of a value in the vector.
+ * Sets the element at the specified index in the vector.
  * 
  * @param vector A pointer to the vector.
- * @param value The value to find.
- * @return The index of the first occurrence of the value, or -1 if the value is not found.
+ * @param index The index of the element to set.
+ * @param value The value to set at the specified index.
  */
-int contains_element(NeuVector* vector, int value) {
-    // TODO: Implement this function
-    return -1;
-}
-
-/**
- * Prints the elements of the vector to the standard output.
- * 
- * @param vector A pointer to the vector.
- */
-void print_vector(NeuVector* vector) {
+void set_vector_element(NeuVector* vector, size_t index, int value) {
     // TODO: Implement this function
 }
