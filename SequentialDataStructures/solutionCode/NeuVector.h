@@ -23,6 +23,7 @@ int pop_vector_element(NeuVector* vector);
 int remove_vector_element(NeuVector* vector, size_t index);
 int contains_element(NeuVector* vector, int value);
 void print_vector(NeuVector* vector);
+const char* vector_to_string(NeuVector* vector);
 
 
 
