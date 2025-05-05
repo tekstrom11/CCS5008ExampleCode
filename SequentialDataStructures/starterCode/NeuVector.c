@@ -138,3 +138,41 @@ int remove_vector_element(NeuVector* vector, size_t index) {
 void set_vector_element(NeuVector* vector, size_t index, int value) {
     // TODO: Implement this function
 }
+
+
+/**
+ * Converts the vector to a string representation, to make tests easier. 
+ * NOTE: this is mostly untested... use with care.
+ * 
+ * @param vector A pointer to the vector.
+ * @return A string representation of the vector.
+ */
+const char* vector_to_string(NeuVector* vector) {
+    if (vector == NULL || vector->size == 0 || vector->data == NULL) {
+        return "[]"; // Return empty string if vector is empty
+    }
+    size_t buffer_size = 3 + (vector->size - 1) * 4; // Estimate buffer size
+    char* buffer = (char*)malloc(buffer_size * sizeof(char));
+    if (buffer == NULL) {
+        return NULL; // Memory allocation failed
+    }
+    buffer[0] = '[';
+    size_t offset = 1;
+    for (size_t i = 0; i < vector->size; ++i) {
+        offset += snprintf(buffer + offset, buffer_size - offset, "%d", vector->data[i]);
+        if (i < vector->size - 1) {
+            offset += snprintf(buffer + offset, buffer_size - offset, ", "); // Add comma and space
+        }
+        if(offset >= buffer_size) {
+            // resize the buffer if needed
+            buffer_size *= SCALE_FACTOR;
+            buffer = (char*)realloc(buffer, buffer_size * sizeof(char));
+            if (buffer == NULL) {
+                return NULL; // Memory allocation failed
+            }
+        }
+    }
+    buffer[offset] = ']'; // Close the string representation
+    buffer[offset + 1] = '\0'; // Null-terminate the string
+    return buffer; // Return the string representation of the vector
+}
