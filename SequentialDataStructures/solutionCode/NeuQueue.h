@@ -22,7 +22,7 @@ int get_queue_size(NeuQueue* queue); // Function to get the current size of the 
 int get_queue_capacity(NeuQueue* queue); // Function to get the current capacity of the queue
 int peek_queue(NeuQueue* queue); // Function to get the front element of the queue without removing it
 int dequeue(NeuQueue* queue); // Function to remove and return the front element of the queue
-int enqueue(NeuQueue* queue, int value); // Function to add an element to the end of the queue
+bool enqueue(NeuQueue* queue, int value); // Function to add an element to the end of the queue
 bool is_queue_empty(NeuQueue* queue); // Function to check if the queue is empty
 bool is_queue_full(NeuQueue* queue); // Function to check if the queue is full
 void print_queue(NeuQueue* queue); // Function to print the elements of the queue

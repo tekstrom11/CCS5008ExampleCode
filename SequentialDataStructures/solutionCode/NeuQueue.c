@@ -10,14 +10,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-
 #include "NeuQueue.h"
 
+#include <errno.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
 
 #include "NeuQueue.h"
 
@@ -29,8 +28,23 @@
  * fails.
  */
 NeuQueue *create_queue(size_t initial_capacity) {
-  // TODO: Implement this function
-  return NULL;
+  NeuQueue *queue = (NeuQueue *)malloc(sizeof(NeuQueue));
+  if (queue == NULL) {
+    return NULL; // Memory allocation failed
+  }
+
+  queue->data = (int *)malloc(initial_capacity * sizeof(int));
+  if (queue->data == NULL) {
+    free(queue); // Free the queue structure if data allocation fails
+    return NULL; // Memory allocation failed
+  }
+
+  queue->front = 0;
+  queue->end = 0;
+  queue->size = 0;
+  queue->capacity = initial_capacity;
+
+  return queue; // Return the newly created queue
 }
 
 /**
@@ -39,7 +53,10 @@ NeuQueue *create_queue(size_t initial_capacity) {
  * @param queue A pointer to the queue to be freed.
  */
 void free_queue(NeuQueue *queue) {
-  // TODO: Implement this function
+  if (queue != NULL) {
+    free(queue->data); // Free the data array
+    free(queue);       // Free the queue structure
+  }
 }
 
 /**
@@ -49,8 +66,17 @@ void free_queue(NeuQueue *queue) {
  * @return The value of the removed element, or -1 if the queue is empty.
  */
 int dequeue(NeuQueue *queue) {
-  // TODO: Implement this function
-  return -1;
+  if (is_queue_empty(queue)) {
+    errno = ENODATA; // Set errno to indicate no data
+    return -1;       // Queue is empty
+  }
+
+  errno = 0; // Clear errno before accessing the queue
+  int value = queue->data[queue->front];
+  queue->front = (queue->front + 1) % queue->capacity; // Move front pointer
+  queue->size--;                                       // Decrease size
+
+  return value; // Return the removed element
 }
 
 /**
@@ -58,12 +84,21 @@ int dequeue(NeuQueue *queue) {
  *
  * @param queue A pointer to the queue.
  * @param value The value to add to the queue.
- * @return 0 if successful, or -1 if the queue is full or memory allocation
- * fails.
+ * @return true if successful, or false if the queue is full or memory
+ * allocation fails.
  */
-int enqueue(NeuQueue *queue, int value) {
-  // TODO: Implement this function
-  return -1;
+bool enqueue(NeuQueue *queue, int value) {
+  if (is_queue_full(queue)) {
+    errno = ENOSPC; // Set errno to indicate no space
+    return false;   // Queue is full
+  }
+
+  errno = 0; // Clear errno before accessing the queue
+  queue->data[queue->end] = value;
+  queue->end = (queue->end + 1) % queue->capacity; // Move end pointer
+  queue->size++;                                   // Increase size
+
+  return true; // Return success
 }
 
 /**
@@ -73,8 +108,7 @@ int enqueue(NeuQueue *queue, int value) {
  * @return true if the queue is empty, false otherwise.
  */
 bool is_queue_empty(NeuQueue *queue) {
-  // TODO: Implement this function
-  return true;
+  return queue->size == 0; // Check if size is 0
 }
 
 /**
@@ -84,8 +118,7 @@ bool is_queue_empty(NeuQueue *queue) {
  * @return true if the queue is full, false otherwise.
  */
 bool is_queue_full(NeuQueue *queue) {
-  // TODO: Implement this function
-  return false;
+  return queue->size == queue->capacity; // Check if size equals capacity
 }
 
 /**
@@ -95,8 +128,7 @@ bool is_queue_full(NeuQueue *queue) {
  * @return The capacity of the queue.
  */
 int get_queue_capacity(NeuQueue *queue) {
-  // TODO: Implement this function
-  return 0;
+  return queue->capacity; // Return the capacity of the queue
 }
 
 /**
@@ -106,8 +138,7 @@ int get_queue_capacity(NeuQueue *queue) {
  * @return The number of elements in the queue.
  */
 int get_queue_size(NeuQueue *queue) {
-  // TODO: Implement this function
-  return 0;
+  return queue->size; // Return the size of the queue
 }
 
 /**
@@ -117,8 +148,13 @@ int get_queue_size(NeuQueue *queue) {
  * @return The value of the front element, or -1 if the queue is empty.
  */
 int peek_queue(NeuQueue *queue) {
-  // TODO: Implement this function
-  return -1;
+    if (is_queue_empty(queue)) {
+        errno = ENODATA; // Set errno to indicate no data
+        return -1;       // Queue is empty
+    }
+    
+    errno = 0; // Clear errno before accessing the queue
+    return queue->data[queue->front]; // Return the front element
 }
 
 /**
@@ -127,7 +163,20 @@ int peek_queue(NeuQueue *queue) {
  * @param queue A pointer to the queue.
  */
 void print_queue(NeuQueue *queue) {
-  // TODO: Implement this function
+    if (queue == NULL) {
+        printf("Queue is NULL\n");
+        return;
+    }
+    
+    printf("Queue: [");
+    for (size_t i = 0; i < queue->size; i++) {
+        size_t index = (queue->front + i) % queue->capacity;
+        printf("%d", queue->data[index]);
+        if (i < queue->size - 1) {
+        printf(", "); // Only print comma if not the last element
+        }
+    }
+    printf("]\n");
 }
 
 /**
