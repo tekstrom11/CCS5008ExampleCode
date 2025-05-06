@@ -24,7 +24,7 @@ int sll_pop(NeuSLL *list);
 int get_sll_element(NeuSLL *list, size_t index);
 void set_sll_element(NeuSLL *list, size_t index, int value);
 void insert_sll_element(NeuSLL *list, size_t index, int value);
-void remove_sll_element(NeuSLL *list, size_t index);
+int remove_sll_element(NeuSLL *list, size_t index);
 size_t get_sll_size(NeuSLL *list);
 bool is_sll_empty(NeuSLL *list);
 void print_sll(NeuSLL *list);
