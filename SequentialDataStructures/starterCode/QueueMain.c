@@ -1,8 +1,6 @@
 /**
  * Sample Test file for the Queue implementation.
  * 
- * @author Albert Lionelle
- * @date 2025_05_04
  */
 
 #include <stdio.h>

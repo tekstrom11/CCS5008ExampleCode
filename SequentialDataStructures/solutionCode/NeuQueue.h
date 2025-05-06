@@ -26,6 +26,7 @@ bool enqueue(NeuQueue* queue, int value); // Function to add an element to the e
 bool is_queue_empty(NeuQueue* queue); // Function to check if the queue is empty
 bool is_queue_full(NeuQueue* queue); // Function to check if the queue is full
 void print_queue(NeuQueue* queue); // Function to print the elements of the queue
+void print_queue_memory(NeuQueue *queue); // Function to print the memory locations of the queue elements
 const char* queue_to_string(NeuQueue* queue); // Function to convert the queue to a string representation
 
 

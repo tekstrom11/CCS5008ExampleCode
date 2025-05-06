@@ -148,13 +148,13 @@ int get_queue_size(NeuQueue *queue) {
  * @return The value of the front element, or -1 if the queue is empty.
  */
 int peek_queue(NeuQueue *queue) {
-    if (is_queue_empty(queue)) {
-        errno = ENODATA; // Set errno to indicate no data
-        return -1;       // Queue is empty
-    }
-    
-    errno = 0; // Clear errno before accessing the queue
-    return queue->data[queue->front]; // Return the front element
+  if (is_queue_empty(queue)) {
+    errno = ENODATA; // Set errno to indicate no data
+    return -1;       // Queue is empty
+  }
+
+  errno = 0;                        // Clear errno before accessing the queue
+  return queue->data[queue->front]; // Return the front element
 }
 
 /**
@@ -163,20 +163,42 @@ int peek_queue(NeuQueue *queue) {
  * @param queue A pointer to the queue.
  */
 void print_queue(NeuQueue *queue) {
-    if (queue == NULL) {
-        printf("Queue is NULL\n");
-        return;
+  if (queue == NULL) {
+    printf("Queue is NULL\n");
+    return;
+  }
+
+  printf("Queue: [");
+  for (size_t i = 0; i < queue->size; i++) {
+    size_t index = (queue->front + i) % queue->capacity;
+    printf("%d", queue->data[index]);
+    if (i < queue->size - 1) {
+      printf(", "); // Only print comma if not the last element
     }
-    
-    printf("Queue: [");
-    for (size_t i = 0; i < queue->size; i++) {
-        size_t index = (queue->front + i) % queue->capacity;
-        printf("%d", queue->data[index]);
-        if (i < queue->size - 1) {
-        printf(", "); // Only print comma if not the last element
-        }
+  }
+  printf("]\n");
+}
+void print_queue_memory(NeuQueue *queue) {
+  if (queue == NULL) {
+    printf("Queue is NULL\n");
+    return;
+  }
+  printf("Queue memory locations: [");
+  for (int i = 0; i < queue->capacity; i++) {
+    // Check if the index is within the valid range of the circular queue
+    if (queue->size > 0 &&
+        ((queue->front <= queue->end && i >= queue->front && i < queue->end) ||
+         (queue->front > queue->end &&
+          (i >= queue->front || i < queue->end)))) {
+      printf("%d", queue->data[i]); // Print the value at the valid index
+    } else {
+      printf("_"); // Print an underscore for invalid indices
     }
-    printf("]\n");
+    if (i < queue->capacity - 1) {
+      printf(", "); // Only print comma if not the last element
+    }
+  }
+  printf("]\n");
 }
 
 /**
