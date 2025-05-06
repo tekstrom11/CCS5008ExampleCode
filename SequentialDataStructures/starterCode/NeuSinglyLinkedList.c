@@ -106,7 +106,7 @@ bool is_sll_empty(NeuSLL *list) {
  * @param index The index of the element to remove.
  * @return The value of the removed element, or -1 if the index is out of bounds.
  */
-void remove_sll_element(NeuSLL *list, size_t index) {
+int remove_sll_element(NeuSLL *list, size_t index) {
   // TODO: Implement this function
 }
 
