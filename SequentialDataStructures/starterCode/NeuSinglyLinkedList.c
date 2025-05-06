@@ -1,8 +1,6 @@
 /**
- * Solution file for Code Along: NeuSinglyLinkedList
+ * Starter code for Code Along: Singly Linked List
  *
- * @author Albert Lionelle
- * @date 2025_05_04
  */
 
 #include <stdbool.h>
@@ -52,7 +50,6 @@ void sll_free(NeuSLL *list) {
   // TODO: Implement this function
 }
 
-
 /**
  * Gets the node at the specified index in the singly linked list.
  *
@@ -61,9 +58,9 @@ void sll_free(NeuSLL *list) {
  * @return A pointer to the node at the specified index, or NULL if the index is
  * out of bounds.
  */
-Node * __sll_get_node(NeuSLL *list, size_t index) { 
-    // TODO: Implement this function
-    return NULL;
+Node *__sll_get_node(NeuSLL *list, size_t index) {
+  // TODO: Implement this function
+  return NULL;
 }
 
 /**
@@ -185,40 +182,43 @@ void print_sll(NeuSLL *list) {
  * fails.
  */
 const char *sll_to_string(NeuSLL *list) {
-    if (list == NULL || list->head == NULL) {
-        return strdup("[]");
+  if (list == NULL || list->head == NULL) {
+    return strdup("[]");
+  }
+
+  size_t buffer_size = 64; // Initial buffer size
+  char *buffer = (char *)malloc(buffer_size * sizeof(char));
+  if (buffer == NULL) {
+    return NULL; // Memory allocation failed
+  }
+
+  strcpy(buffer, "["); // Start the string with an opening bracket
+
+  Node *current = list->head;
+  while (current != NULL) {
+    char temp[16]; // Temporary buffer to hold the string representation of the
+                   // current node's data
+    sprintf(temp, "%d", current->data); // Convert the integer to a string
+    strcat(buffer,
+           temp); // Append the string representation of the current node's data
+
+    if (current->next != NULL) {
+      strcat(buffer,
+             ", "); // Append a comma and space if there are more elements
     }
 
-    size_t buffer_size = 64; // Initial buffer size
-    char *buffer = (char *)malloc(buffer_size * sizeof(char));
-    if (buffer == NULL) {
+    // Check if the buffer needs to be resized
+    if (strlen(buffer) + 16 >= buffer_size) {
+      buffer_size *= 2;
+      buffer = (char *)realloc(buffer, buffer_size * sizeof(char));
+      if (buffer == NULL) {
         return NULL; // Memory allocation failed
+      }
     }
 
-    strcpy(buffer, "["); // Start the string with an opening bracket
+    current = current->next;
+  }
 
-    Node *current = list->head;
-    while (current != NULL) {
-        char temp[16]; // Temporary buffer to hold the string representation of the current node's data
-        sprintf(temp, "%d", current->data); // Convert the integer to a string
-        strcat(buffer, temp); // Append the string representation of the current node's data
-
-        if (current->next != NULL) {
-            strcat(buffer, ", "); // Append a comma and space if there are more elements
-        }
-
-        // Check if the buffer needs to be resized
-        if (strlen(buffer) + 16 >= buffer_size) {
-            buffer_size *= 2;
-            buffer = (char *)realloc(buffer, buffer_size * sizeof(char));
-            if (buffer == NULL) {
-                return NULL; // Memory allocation failed
-            }
-        }
-
-        current = current->next;
-    }
-
-    strcat(buffer, "]"); // Close the string with a closing bracket
-    return buffer;
+  strcat(buffer, "]"); // Close the string with a closing bracket
+  return buffer;
 }
