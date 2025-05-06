@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <errno.h>
 
 #include "NeuSinglyLinkedList.h"
 
@@ -217,7 +218,7 @@ size_t get_sll_size(NeuSLL *list) {
  * @return The value of the popped element, or -1 if the list is empty.
  */
 int sll_pop(NeuSLL *list) {
-  return remove_sll_element(list, list->size - 1);
+  return remove_sll_element(list,0);
 }
 
 /**
