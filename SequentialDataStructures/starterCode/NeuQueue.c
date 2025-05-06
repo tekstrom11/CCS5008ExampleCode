@@ -124,7 +124,20 @@ int peek_queue(NeuQueue *queue) {
  * @param queue A pointer to the queue.
  */
 void print_queue(NeuQueue *queue) {
-  // TODO: Implement this function
+  if (queue == NULL) {
+      printf("Queue is NULL\n");
+      return;
+  }
+  
+  printf("Queue: [");
+  for (size_t i = 0; i < queue->size; i++) {
+      size_t index = (queue->front + i) % queue->capacity;
+      printf("%d", queue->data[index]);
+      if (i < queue->size - 1) {
+      printf(", "); // Only print comma if not the last element
+      }
+  }
+  printf("]\n");
 }
 
 /**

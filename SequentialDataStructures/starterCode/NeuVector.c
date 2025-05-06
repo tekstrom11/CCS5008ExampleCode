@@ -113,7 +113,15 @@ int pop_vector_element(NeuVector* vector) {
  * @param vector A pointer to the vector.
  */
 void print_vector(NeuVector* vector) {
-    // TODO: Implement this function
+    printf("Vector: [");
+    for(int i = 0; i < vector->size; i++) {
+        printf("%d", vector->data[i]);
+        if (i < vector->size - 1) {
+            printf(", "); // only print comma if not the last element
+        }
+    }
+    printf("]\n");
+
 }
 
 /**
