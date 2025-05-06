@@ -13,7 +13,7 @@ QUEUE_SRCS = NeuQueue.c QueueMain.c
 
 # Singly Linked List target
 SLL_TARGET = sllTest.out
-SLL_SRCS = NeuSinglyLinkedList.c sslMain.c
+SLL_SRCS = NeuSinglyLinkedList.c sllMain.c
 
 all: vector sll queue
 
