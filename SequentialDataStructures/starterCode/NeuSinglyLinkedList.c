@@ -108,6 +108,7 @@ bool is_sll_empty(NeuSLL *list) {
  */
 int remove_sll_element(NeuSLL *list, size_t index) {
   // TODO: Implement this function
+  return -1;
 }
 
 /**
