@@ -55,12 +55,12 @@ int dequeue(NeuQueue *queue) {
  *
  * @param queue A pointer to the queue.
  * @param value The value to add to the queue.
- * @return 0 if successful, or -1 if the queue is full or memory allocation
+ * @return true if successful, or false if the queue is full or memory allocation
  * fails.
  */
-int enqueue(NeuQueue *queue, int value) {
+bool enqueue(NeuQueue *queue, int value) {
   // TODO: Implement this function
-  return -1;
+  return false;
 }
 
 /**
