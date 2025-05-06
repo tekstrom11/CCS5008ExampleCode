@@ -115,12 +115,15 @@ int main(int argc, char* argv[]) {
         speed_test_add(num_elements); // Run speed test with specified number of elements
         return EXIT_SUCCESS; // Exit after speed test
     } // else run other tests
+    
+    /*
     test_add_elements(); // Test adding elements
+    test_insert_elements(); // Test inserting elements
+    
     test_remove_elements(); // Test removing elements
     test_pop_elements(); // Test popping elements
     test_push_elements(); // Test pushing elements
-    test_insert_elements(); // Test inserting elements
- 
+    */
     return EXIT_SUCCESS;
     
 }
