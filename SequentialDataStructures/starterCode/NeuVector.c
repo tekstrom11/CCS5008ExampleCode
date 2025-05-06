@@ -33,7 +33,6 @@ void free_vector(NeuVector* vector) {
  * 
  * @param vector A pointer to the vector.
  * @param value The value to append.
- * @return 0 if successful, or -1 if memory allocation fails.
  */
 void append_vector_element(NeuVector* vector, int value) {
     // TODO: Implement this function
