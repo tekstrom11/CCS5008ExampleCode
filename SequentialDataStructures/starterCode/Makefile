@@ -13,7 +13,7 @@ VECTOR_SRCS = NeuVector.c VectorMain.c
 
 # Queue target
 QUEUE_TARGET = queueTest.out
-QUEUE_SRCS = Queue.c QueueMain.c
+QUEUE_SRCS = NeuQueue.c QueueMain.c
 
 all: vector stack queue
 
