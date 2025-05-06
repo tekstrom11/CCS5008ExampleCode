@@ -142,7 +142,7 @@ void print_queue_memory(NeuQueue *queue) {
     // Check if the index is within the valid range of the circular queue
     if (queue->size > 0 &&
         ((queue->front <= queue->end && i >= queue->front && i < queue->end) ||
-         (queue->front > queue->end &&
+         (queue->front >= queue->end &&
           (i >= queue->front || i < queue->end)))) {
       printf("%d", queue->data[i]); // Print the value at the valid index
     } else {
