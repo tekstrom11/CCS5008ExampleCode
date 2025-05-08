@@ -20,7 +20,23 @@
  * @return A pointer to the newly created priority queue.
  */
 NeuPriorityQueue* create_priority_queue(int capacity) {
-    //TODO: Implement
+    NeuPriorityQueue* queue = (NeuPriorityQueue*)malloc(sizeof(NeuPriorityQueue));
+    if (!queue) {
+        fprintf(stderr, "Memory allocation failed\n");
+        return NULL;
+    }
+
+    queue->data = (int*)malloc(capacity * sizeof(int));
+    if (!queue->data) {
+        fprintf(stderr, "Memory allocation failed\n");
+        free(queue);
+        return NULL;
+    }
+
+    queue->capacity = capacity;
+    queue->size = 0;
+
+    return queue;
 }
 
 /**
@@ -28,7 +44,10 @@ NeuPriorityQueue* create_priority_queue(int capacity) {
  * @param queue A pointer to the priority queue to free.
  */
 void free_priority_queue(NeuPriorityQueue* queue) {
-    // TODO: Implement
+    if (queue) {
+        free(queue->data);
+        free(queue);
+    }
 }
 
 /**
@@ -36,7 +55,9 @@ void free_priority_queue(NeuPriorityQueue* queue) {
  * @param queue A pointer to the priority queue to clear.
  */
 void clear_priority_queue(NeuPriorityQueue* queue) {
-    // TODO: Implement
+    if (queue) {
+        queue->size = 0;
+    }
 }
 
 /**
@@ -45,8 +66,27 @@ void clear_priority_queue(NeuPriorityQueue* queue) {
  * @return The value of the highest-priority element.
  */
 int dequeue(NeuPriorityQueue* queue) {
-    // TODO: Implement
-    return 0;
+    if (!has_items(queue)) {
+        fprintf(stderr, "Queue is empty\n");
+        errno = ENODATA;
+        return -1;
+    }
+    errno = 0;
+    int highest_priority = queue->data[queue->size - 1];
+    queue->size--;
+    return highest_priority;
+}
+
+
+void __double_queue_capacity(NeuPriorityQueue* queue) {
+    int new_capacity = queue->capacity * SCALE_FACTOR;
+    int* new_data = (int*)realloc(queue->data, new_capacity * sizeof(int));
+    if (!new_data) {
+        fprintf(stderr, "Memory allocation failed\n");
+        return;
+    }
+    queue->data = new_data;
+    queue->capacity = new_capacity;
 }
 
 /**
@@ -55,7 +95,20 @@ int dequeue(NeuPriorityQueue* queue) {
  * @param value The value to add to the queue.
  */
 void enqueue(NeuPriorityQueue* queue, int value) {
-    // TODO: Implement
+    if(queue->size >= queue->capacity) {
+        __double_queue_capacity(queue);     
+    }
+    if (queue->size == 0) {
+        queue->data[0] = value;
+    } else {
+        int i = queue->size - 1;
+        while (i >= 0 && queue->data[i] < value) {
+            queue->data[i + 1] = queue->data[i];
+            i--;
+        }
+        queue->data[i] = value;
+    }
+    queue->size++;
 }
 
 /**
@@ -64,8 +117,11 @@ void enqueue(NeuPriorityQueue* queue, int value) {
  * @return true if the queue has items, false otherwise.
  */
 bool has_items(NeuPriorityQueue* queue) {
-    // TODO: Implement
-    return false;
+    if (queue == NULL) {
+        fprintf(stderr, "Queue is NULL\n");
+        return false;
+    }
+    return queue->size > 0;
 }
 
 /**
@@ -74,8 +130,13 @@ bool has_items(NeuPriorityQueue* queue) {
  * @return The value of the highest-priority element.
  */
 int peek(NeuPriorityQueue* queue) {
-    // TODO: Implement
-    return 0;
+    if (!has_items(queue)) {
+        fprintf(stderr, "Queue is empty\n");
+        errno = ENODATA;
+        return -1;
+    }
+    errno = 0;
+    return queue->data[queue->size - 1];
 }
 
 /**
@@ -83,5 +144,21 @@ int peek(NeuPriorityQueue* queue) {
  * @param queue A pointer to the priority queue.
  */
 void print_priority_queue(NeuPriorityQueue* queue) {
-    // TODO: Implement
+    if (queue == NULL) {
+        fprintf(stderr, "Queue is NULL\n");
+        return;
+    }
+    if (queue->size == 0) {
+        printf("Queue is empty\n");
+        return;
+    }
+
+    printf("Priority Queue: [");
+    for (int i = queue->size - 1; i >= 0; i--) {
+        printf("%d", queue->data[i]);
+        if (i > 0) {
+            printf(", ");
+        }
+    }
+    printf("]\n");
 }
