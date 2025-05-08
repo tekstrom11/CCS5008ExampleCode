@@ -19,5 +19,6 @@ void free_heap(NeuHeap *heap);
 void enqueue(NeuHeap *heap, int value);
 int dequeue(NeuHeap *heap);
 void print_heap(NeuHeap *heap);
+void print_heap_visually(NeuHeap* heap);
 
 #endif /* NEU_HEAP_H */
