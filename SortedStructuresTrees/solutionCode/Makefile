@@ -2,23 +2,23 @@
 CC = gcc
 CFLAGS = -Wall
 
-# Vector target
+# Priority Queue with Sorted Array target
 SORTED_QUEUE_TARGET = sortedTest.out
-SORTED_QUEUE_TARGET = NeuPriorityQueue.c PriorityMain.c
+SORTED_QUEUE_SRCS = NeuPriorityQueue.c PriorityMain.c
 
-# Queue target
+# Binary Search Tree target
 BINARY_TREE_TARGET = bstTest.out
 BINARY_TREE_SRC = NeuBST.c BSTMain.c
 
-# Singly Linked List target
+# Heap
 HEAP_TARGET = heapTest.out
 HEAP_SRCS = NeuHeap.c HeapMain.c
 
-all: sorted bst heap
+all: pqueue bst heap
 
-sorted: $(SORTED_QUEUE_TARGET)
+pqueue: $(SORTED_QUEUE_TARGET)
 
-$(SORTED_QUEUE): $(SORTED_QUEUE_SRCS)
+$(SORTED_QUEUE_TARGET): $(SORTED_QUEUE_SRCS)
 	$(CC) $(CFLAGS) -o $(SORTED_QUEUE_TARGET) $(SORTED_QUEUE_SRCS)
 
 bst: $(BST_TREE_TARGET)
