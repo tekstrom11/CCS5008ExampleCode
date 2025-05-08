@@ -6,25 +6,25 @@ CFLAGS = -Wall
 SORTED_QUEUE_TARGET = sortedTest.out
 SORTED_QUEUE_SRCS = NeuPriorityQueue.c PriorityMain.c
 
-# Binary Search Tree target
-BINARY_TREE_TARGET = bstTest.out
-BINARY_TREE_SRC = NeuBST.c BSTMain.c
+ Tree target
+TREE_TARGET = treeTest.out
+TREE_SRC = NeuTree.c TreeMain.c
 
 # Heap
 HEAP_TARGET = heapTest.out
 HEAP_SRCS = NeuHeap.c HeapMain.c
 
-all: pqueue bst heap
+all: pqueue tree heap
 
 pqueue: $(SORTED_QUEUE_TARGET)
 
 $(SORTED_QUEUE_TARGET): $(SORTED_QUEUE_SRCS)
 	$(CC) $(CFLAGS) -o $(SORTED_QUEUE_TARGET) $(SORTED_QUEUE_SRCS)
 
-bst: $(BST_TREE_TARGET)
+tree: $(TREE_TARGET)
 
-$(BST_TREE_TARGET): $(BST_TREE_SRCS)
-	$(CC) $(CFLAGS) -o $(BST_TREE_TARGET) $(BST_TREE_SRCS)
+$(TREE_TARGET): $(TREE_SRCS)
+	$(CC) $(CFLAGS) -o $(TREE_TARGET) $(TREE_SRCS)
 
 heap: $(HEAP_TARGET)
 
