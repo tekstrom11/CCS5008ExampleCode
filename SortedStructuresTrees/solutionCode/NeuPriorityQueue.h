@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+#define SCALE_FACTOR 2
+
 typedef struct NeuPriorityQueue {
     int *data;
     int capacity;
