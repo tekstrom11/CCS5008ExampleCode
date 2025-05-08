@@ -6,9 +6,9 @@ CFLAGS = -Wall
 SORTED_QUEUE_TARGET = sortedTest.out
 SORTED_QUEUE_SRCS = NeuPriorityQueue.c PriorityMain.c
 
- Tree target
+# Tree target
 TREE_TARGET = treeTest.out
-TREE_SRC = NeuTree.c TreeMain.c
+TREE_SRCS = NeuTree.c TreeMain.c
 
 # Heap
 HEAP_TARGET = heapTest.out
