@@ -1,9 +1,7 @@
-/** 
-* Solution code for Code Along Tree Traversal
-*
-* @author Albert Lionelle
-* @date 2025-05-07
-*/
+/**
+ * Starter Code for Code Along Tree Traversal
+ */
+
 
 #include <stdio.h>
 #include <stdlib.h>
