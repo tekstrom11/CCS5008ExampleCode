@@ -11,8 +11,8 @@
 #define INITIAL_CAPACITY 8
 
 typedef struct {
-    char* itemID;
-    char* itemName;
+    char itemID[255];
+    char itemName[255];
     double itemPrice;
     int itemQuantity;
 } Item;
@@ -24,8 +24,8 @@ typedef struct NeuNode {
 
 typedef struct {
     NeuNode** table;
-    int size;
-    int capacity;
+    size_t size;
+    size_t capacity;
 } NeuHashtable;
 
 
@@ -35,6 +35,8 @@ void add_item(NeuHashtable* hashtable, const char* itemID, const char* itemName,
 Item* get_item(NeuHashtable* hashtable, const char* itemID);
 void remove_item(NeuHashtable* hashtable, const char* itemID);
 void print_hashtable(NeuHashtable* hashtable);
+void print_table_visual(NeuHashtable* hashtable);
+double get_load_factor(NeuHashtable* hashtable);
 
 
 

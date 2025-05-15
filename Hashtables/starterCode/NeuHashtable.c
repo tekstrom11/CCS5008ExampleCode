@@ -55,6 +55,15 @@ Item *get_item(NeuHashtable *hashtable, const char *itemID) {
 }
 
 /**
+ * Gets the load factor of the hashtable.
+ * @param hashtable A pointer to the hashtable.
+ * @return The load factor of the hashtable.
+ */
+inline double get_load_factor(NeuHashtable* hashtable) {
+    return 0.0; // TODO: Implement
+}
+
+/**
  * Removes an item from the hashtable by its ID.
  * @param hashtable A pointer to the hashtable.
  * @param itemID The ID of the item to remove.
@@ -69,7 +78,7 @@ void remove_item(NeuHashtable *hashtable, const char *itemID) {
  */
 void __print_item(Item *item) {
   if (item != NULL) {
-    printf("ITEM(ID: %s, Name: %s, Price: %.2f, Quantity: %d)", item->itemID,
+    printf("item(ID: %s, Name: %s, Price: %.2f, Quantity: %d)", item->itemID,
            item->itemName, item->itemPrice, item->itemQuantity);
   } else {
     printf("NULL");
@@ -99,4 +108,27 @@ void print_hashtable(NeuHashtable *hashtable) {
     }
   }
   printf("}\n");
+}
+
+/**
+ * Prints the array with a count of number of items in 
+ * each index of the hashtable. An example layout would be
+ * [1, 0, 0, 0, 0, 0, 0, 1]
+ * where the first index has 1 item and the last index has 1 item.
+ */
+void print_table_visual(NeuHashtable *hashtable) {
+    printf("[");
+    for (int i = 0; i < hashtable->capacity; i++) {
+        NeuNode* current = hashtable->table[i];
+        int count = 0;
+        while (current != NULL) {
+            count++;
+            current = current->next;
+        }
+        printf("%d", count);
+        if (i < hashtable->capacity - 1) {
+            printf(", ");
+        }
+    }
+    printf("]\n");
 }
