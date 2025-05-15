@@ -14,7 +14,7 @@
 #include "NeuHashtable.h"
 
 
-NeuNode**  create_table(int capacity) {
+NeuNode**  __node_create_table(int capacity) {
     NeuNode** table = (NeuNode**)malloc(capacity * sizeof(NeuNode*));
     if (table == NULL) {
         fprintf(stderr, "Memory allocation failed\n");
@@ -48,7 +48,7 @@ NeuHashtable* create_hashtable(int capacity) {
     }
     hashtable->capacity = new_capacity;
     hashtable->size = 0;
-    hashtable->table = create_table(new_capacity);
+    hashtable->table = __node_create_table(new_capacity);
     return hashtable;
 }
 
@@ -102,7 +102,7 @@ NeuNode * __create_node(const char* itemID, const char* itemName, double itemPri
 
 void __double_capacity(NeuHashtable * hashtable) {
     int new_capacity = hashtable->capacity * SCALE_FACTOR;
-    NeuNode** new_table = create_table(new_capacity);
+    NeuNode** new_table = __node_create_table(new_capacity);
 
     for (int i = 0; i < hashtable->capacity; i++) {
         NeuNode* current = hashtable->table[i];
