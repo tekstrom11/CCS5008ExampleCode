@@ -187,7 +187,24 @@ inline double get_load_factor(NeuHashtable* hashtable) {
  * @param itemID The ID of the item to remove.
  */
 void remove_item(NeuHashtable* hashtable, const char* itemID) {
-    //TODO: Implement
+    size_t hash_index = __get_index(itemID, hashtable->capacity);
+    NeuNode* current = hashtable->table[hash_index];
+    NeuNode* prev = NULL;
+
+    while (current != NULL) {
+        if (strcmp(current->data.itemID, itemID) == 0) {
+            if (prev == NULL) {
+                hashtable->table[hash_index] = current->next;
+            } else {
+                prev->next = current->next;
+            }
+            free(current);
+            hashtable->size--;
+            return;
+        }
+        prev = current;
+        current = current->next;
+    }
 }
 
 /**
