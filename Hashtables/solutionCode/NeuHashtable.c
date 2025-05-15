@@ -6,11 +6,25 @@
 **/
 
 
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 #include "NeuHashtable.h"
+
+
+NeuNode**  create_table(int capacity) {
+    NeuNode** table = (NeuNode**)malloc(capacity * sizeof(NeuNode*));
+    if (table == NULL) {
+        fprintf(stderr, "Memory allocation failed\n");
+        exit(EXIT_FAILURE);
+    }
+    for (int i = 0; i < capacity; i++) {
+        table[i] = NULL;
+    }
+    return table;
+}
 
 /**
  * Creates a new hashtable with the given capacity.
@@ -20,8 +34,22 @@
  * @return A pointer to the newly created hashtable.
  */
 NeuHashtable* create_hashtable(int capacity) {
-    //TODO: Implement
-    return NULL;
+    // first find the nearest power of two greater than or equal to capacity
+    int new_capacity = 1;
+    while (new_capacity < capacity) {
+        new_capacity <<= 1; // multiply by 2
+    }
+
+    // allocate memory for the hashtable
+    NeuHashtable* hashtable = (NeuHashtable*)malloc(sizeof(NeuHashtable));
+    if (hashtable == NULL) {
+        fprintf(stderr, "Memory allocation failed\n");
+        exit(EXIT_FAILURE);
+    }
+    hashtable->capacity = new_capacity;
+    hashtable->size = 0;
+    hashtable->table = create_table(new_capacity);
+    return hashtable;
 }
 
 /**
@@ -29,7 +57,18 @@ NeuHashtable* create_hashtable(int capacity) {
  * @param hashtable A pointer to the hashtable to free.
  */
 void free_hashtable(NeuHashtable* hashtable) {
-    //TODO: Implement
+    if (hashtable != NULL) {
+        for (int i = 0; i < hashtable->capacity; i++) {
+            NeuNode* current = hashtable->table[i];
+            while (current != NULL) {
+                NeuNode* temp = current;
+                current = current->next;
+                free(temp);
+            }
+        }
+        free(hashtable->table);
+        free(hashtable);
+    }
 }
 
 size_t __djb2_hash_function(const char* key) {
@@ -43,6 +82,46 @@ size_t __djb2_hash_function(const char* key) {
     return hash;
 }
 
+size_t __get_index(const char* itemID, size_t capacity) {
+    return __djb2_hash_function(itemID) & (capacity-1); // faster than %
+}
+
+NeuNode * __create_node(const char* itemID, const char* itemName, double itemPrice, int itemQuantity) {
+    NeuNode* newNode = (NeuNode*)malloc(sizeof(NeuNode));
+    if (newNode == NULL) {
+        fprintf(stderr, "Memory allocation failed\n");
+        exit(EXIT_FAILURE);
+    }
+    strcpy(newNode->data.itemID, itemID);
+    strcpy(newNode->data.itemName, itemName); // does this work?
+    newNode->data.itemPrice = itemPrice;
+    newNode->data.itemQuantity = itemQuantity;
+    newNode->next = NULL;
+    return newNode;
+}
+
+void __double_capacity(NeuHashtable * hashtable) {
+    int new_capacity = hashtable->capacity * SCALE_FACTOR;
+    NeuNode** new_table = create_table(new_capacity);
+
+    for (int i = 0; i < hashtable->capacity; i++) {
+        NeuNode* current = hashtable->table[i];
+        while (current != NULL) {
+            size_t hash_index = __get_index(current->data.itemID, new_capacity);
+            NeuNode* next_node = current->next;
+
+            current->next = new_table[hash_index];
+            new_table[hash_index] = current;
+
+            current = next_node;
+        }
+    }
+
+    free(hashtable->table);
+    hashtable->table = new_table;
+    hashtable->capacity = new_capacity;    
+}
+
 /**
  * Adds an item to the hashtable.
  * @param hashtable A pointer to the hashtable.
@@ -52,7 +131,27 @@ size_t __djb2_hash_function(const char* key) {
  * @param itemQuantity The quantity of the item.
  */
 void add_item(NeuHashtable* hashtable, const char* itemID, const char* itemName, double itemPrice, int itemQuantity) {
-    //TODO: Implement
+    if (get_item(hashtable, itemID) != NULL) {
+        fprintf(stderr, "Item with ID %s already exists\n", itemID);
+        return;
+    }
+    
+    // Check if the hashtable needs to be resized
+    if (get_load_factor(hashtable) > LOAD_FACTOR) {
+        __double_capacity(hashtable);
+    }
+    size_t hash_index = __get_index(itemID, hashtable->capacity);
+    NeuNode* newNode = __create_node(itemID, itemName, itemPrice, itemQuantity);
+    if (newNode == NULL) {
+        fprintf(stderr, "Memory allocation failed\n");
+        exit(EXIT_FAILURE);
+    }
+    
+
+    newNode->next = hashtable->table[hash_index];
+    hashtable->table[hash_index] = newNode;
+    hashtable->size++;
+   
 }
 
 /**
@@ -62,8 +161,24 @@ void add_item(NeuHashtable* hashtable, const char* itemID, const char* itemName,
  * @return A pointer to the item if found, or NULL if not found.
  */
 Item* get_item(NeuHashtable* hashtable, const char* itemID) {
-    //TODO: Implement
+    size_t hash_index = __get_index(itemID, hashtable->capacity);
+    NeuNode* current = hashtable->table[hash_index];
+    while (current != NULL) {
+        if (strcmp(current->data.itemID, itemID) == 0) {
+            return &current->data;
+        }
+        current = current->next;
+    }
     return NULL;
+}
+
+/**
+ * Gets the load factor of the hashtable.
+ * @param hashtable A pointer to the hashtable.
+ * @return The load factor of the hashtable.
+ */
+inline double get_load_factor(NeuHashtable* hashtable) {
+    return (double)hashtable->size / hashtable->capacity;
 }
 
 /**
@@ -81,7 +196,7 @@ void remove_item(NeuHashtable* hashtable, const char* itemID) {
  */
 void __print_item(Item* item) {
     if (item != NULL) {
-        printf("ITEM(ID: %s, Name: %s, Price: %.2f, Quantity: %d)", 
+        printf("item(ID: %s, Name: %s, Price: %.2f, Quantity: %d)", 
             item->itemID, item->itemName, item->itemPrice, item->itemQuantity);
     }
     else {
@@ -107,9 +222,32 @@ void print_hashtable(NeuHashtable* hashtable) {
                 printf(", ");
             }
         }
+         if (i < hashtable->capacity - 1 && hashtable->table[i] != NULL) {
+             printf(", ");
+         }
+    }
+    printf("}\n");
+}
+
+/**
+ * Prints the array with a count of number of items in 
+ * each index of the hashtable. An example layout would be
+ * [1, 0, 0, 0, 0, 0, 0, 1]
+ * where the first index has 1 item and the last index has 1 item.
+ */
+void print_table_visual(NeuHashtable *hashtable) {
+    printf("[");
+    for (int i = 0; i < hashtable->capacity; i++) {
+        NeuNode* current = hashtable->table[i];
+        int count = 0;
+        while (current != NULL) {
+            count++;
+            current = current->next;
+        }
+        printf("%d", count);
         if (i < hashtable->capacity - 1) {
             printf(", ");
         }
     }
-    printf("}\n");
+    printf("]\n");
 }
