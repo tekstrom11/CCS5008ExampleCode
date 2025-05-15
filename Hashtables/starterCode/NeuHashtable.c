@@ -1,8 +1,7 @@
 /**
-*  Starter code for the NeuHashtable implementation.
-*
-**/
-
+ *  Starter code for the NeuHashtable implementation.
+ *
+ **/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -12,25 +11,24 @@
 
 /**
  * Creates a new hashtable with the given capacity.
- * For the capacity, it will find the nearest power of two greater than or equal to the given capacity.
+ * For the capacity, it will find the nearest power of two greater than or equal
+ * to the given capacity.
  *
  * @param capacity The initial capacity of the hashtable.
  * @return A pointer to the newly created hashtable.
  */
-NeuHashtable* create_hashtable(int capacity) {
-    //TODO: Implement
-    return NULL;
+NeuHashtable *create_hashtable(int capacity) {
+  // TODO: Implement
+  return NULL;
 }
 
 /**
  * Frees the memory allocated for the hashtable.
  * @param hashtable A pointer to the hashtable to free.
  */
-void free_hashtable(NeuHashtable* hashtable) {
-    //TODO: Implement
+void free_hashtable(NeuHashtable *hashtable) {
+  // TODO: Implement
 }
-
-
 
 /**
  * Adds an item to the hashtable.
@@ -40,8 +38,9 @@ void free_hashtable(NeuHashtable* hashtable) {
  * @param itemPrice The price of the item.
  * @param itemQuantity The quantity of the item.
  */
-void add_item(NeuHashtable* hashtable, const char* itemID, const char* itemName, double itemPrice, int itemQuantity) {
-    //TODO: Implement
+void add_item(NeuHashtable *hashtable, const char *itemID, const char *itemName,
+              double itemPrice, int itemQuantity) {
+  // TODO: Implement
 }
 
 /**
@@ -50,9 +49,9 @@ void add_item(NeuHashtable* hashtable, const char* itemID, const char* itemName,
  * @param itemID The ID of the item to retrieve.
  * @return A pointer to the item if found, or NULL if not found.
  */
-Item* get_item(NeuHashtable* hashtable, const char* itemID) {
-    //TODO: Implement
-    return NULL;
+Item *get_item(NeuHashtable *hashtable, const char *itemID) {
+  // TODO: Implement
+  return NULL;
 }
 
 /**
@@ -60,22 +59,21 @@ Item* get_item(NeuHashtable* hashtable, const char* itemID) {
  * @param hashtable A pointer to the hashtable.
  * @param itemID The ID of the item to remove.
  */
-void remove_item(NeuHashtable* hashtable, const char* itemID) {
-    //TODO: Implement
+void remove_item(NeuHashtable *hashtable, const char *itemID) {
+  // TODO: Implement
 }
 
 /**
  * Prints an item from the hastable.
  * @param item A pointer to the item to print.
  */
-void __print_item(Item* item) {
-    if (item != NULL) {
-        printf("ITEM(ID: %s, Name: %s, Price: %.2f, Quantity: %d)", 
-            item->itemID, item->itemName, item->itemPrice, item->itemQuantity);
-    }
-    else {
-        printf("NULL");
-    }
+void __print_item(Item *item) {
+  if (item != NULL) {
+    printf("ITEM(ID: %s, Name: %s, Price: %.2f, Quantity: %d)", item->itemID,
+           item->itemName, item->itemPrice, item->itemQuantity);
+  } else {
+    printf("NULL");
+  }
 }
 
 /**
@@ -84,21 +82,21 @@ void __print_item(Item* item) {
  * Example: {key1:value1, key2:value2}
  * @param hashtable A pointer to the hashtable.
  */
-void print_hashtable(NeuHashtable* hashtable) {
-    printf("{");
-    for (int i = 0; i < hashtable->capacity; i++) {
-        NeuNode* current = hashtable->table[i];
-        while (current != NULL) {
-            printf("%s:", current->data.itemID);
-            __print_item(&current->data);
-            current = current->next;
-            if (current != NULL) {
-                printf(", ");
-            }
-        }
-        if (i < hashtable->capacity - 1) {
-            printf(", ");
-        }
+void print_hashtable(NeuHashtable *hashtable) {
+  printf("{");
+  for (int i = 0; i < hashtable->capacity; i++) {
+    NeuNode *current = hashtable->table[i];
+    while (current != NULL) {
+      printf("%s:", current->data.itemID);
+      __print_item(&current->data);
+      current = current->next;
+      if (current != NULL) {
+        printf(", ");
+      }
     }
-    printf("}\n");
+    if (i < hashtable->capacity - 1 && hashtable->table[i] != NULL) {
+      printf(", ");
+    }
+  }
+  printf("}\n");
 }
