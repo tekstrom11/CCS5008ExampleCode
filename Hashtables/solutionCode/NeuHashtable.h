@@ -11,8 +11,8 @@
 #define INITIAL_CAPACITY 8
 
 typedef struct {
-    char* itemID;
-    char* itemName;
+    char itemID[255];
+    char itemName[255];
     double itemPrice;
     int itemQuantity;
 } Item;
